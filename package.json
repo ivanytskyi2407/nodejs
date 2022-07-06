@@ -20,5 +20,9 @@
   "homepage": "https://github.com/ivanytskyi2407/nodejs#readme",
   "devDependencies": {
     "nodemon": "^2.0.19"
+  },
+  "dependencies": {
+    "uuid": "^8.3.2",
+    "yargs": "^17.5.1"
   }
 }
