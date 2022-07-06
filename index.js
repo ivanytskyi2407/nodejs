@@ -1,27 +1,34 @@
-const contacts = require("./contacts");
-const argv = require("yargs").argv;
+const { Command } = require("commander");
+const program = new Command();
+program
+  .option("-a, --action <type>", "choose action")
+  .option("-i, --id <type>", "user id")
+  .option("-n, --name <type>", "user name")
+  .option("-e, --email <type>", "user email")
+  .option("-p, --phone <type>", "user phone");
 
+program.parse(process.argv);
+const argv = program.opts();
+
+// const yargs = require("yargs");
+// const { hideBin } = require("yargs/helpers");
+// const arr = hideBin(process.argv);
+// const { argv } = yargs(arr);
+
+const contacts = require("./contacts");
 async function invokeAction({ action, id, name, email, phone }) {
   switch (action) {
     case "list":
-      contacts.listContacts();
+      const list = await contacts.listContacts();
+      console.table(list);
       break;
 
     case "get":
-      const contact = await contacts.getContactById(id);
-      if (!contact) {
-        throw new Error(`Contact with id=${id} not found`);
-      }
-      console.log(contact);
+      contacts.getContactById(id);
       break;
 
     case "add":
-      const newContact = contacts.addContact(name, email, phone);
-      console.log(newContact);
-      if (!newContact) {
-        throw new Error(`Contact with id=${id} not found`);
-      }
-      console.log(newContact);
+      contacts.addContact(name, email, phone);
       break;
 
     case "remove":
@@ -36,7 +43,7 @@ invokeAction(argv);
 
 // invokeAction({ action: "list" });
 
-// invokeAction({ action: "get", id: "1" });
+// invokeAction({ action: "get", id: "10" });
 
 // invokeAction({
 //   action: "add",
@@ -44,4 +51,5 @@ invokeAction(argv);
 //   email: "ivanytskyi2407@gmail.com",
 //   phone: "+380676766950",
 // });
+
 // invokeAction({ action: "remove", id: "1" });

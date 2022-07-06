@@ -8,23 +8,6 @@ async function listContacts() {
   const contacts = JSON.parse(data);
   return contacts;
 }
-
-async function getContactById(contactId) {
-  const contacts = await listContacts();
-  const contactById = contacts.find((item) => item.id === contactId);
-  if (!contactById) {
-    return null;
-  }
-  return contactById;
-}
-
-async function removeContact(contactId) {
-  const contacts = await listContacts();
-  const newList = contacts.filter((item) => item.id !== contactId);
-  console.log(newList);
-  fs.writeFile(contactsPath, JSON.stringify(newList));
-}
-
 async function addContact(name, email, phone) {
   const contacts = await listContacts();
 
@@ -36,6 +19,23 @@ async function addContact(name, email, phone) {
   });
   console.table(contacts);
   fs.writeFile(contactsPath, JSON.stringify(contacts));
+}
+
+async function removeContact(contactId) {
+  const contacts = await listContacts();
+  const newList = contacts.filter((item) => item.id !== contactId);
+  console.log(newList);
+  fs.writeFile(contactsPath, JSON.stringify(newList));
+}
+
+async function getContactById(contactId) {
+  const contacts = await listContacts();
+  const contactById = contacts.find((contact) => contact.id === contactId);
+  if (!contactById) {
+    return null;
+  }
+  console.log(contactById);
+  return contactById;
 }
 
 module.exports = {
