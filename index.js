@@ -10,11 +10,6 @@ program
 program.parse(process.argv);
 const argv = program.opts();
 
-// const yargs = require("yargs");
-// const { hideBin } = require("yargs/helpers");
-// const arr = hideBin(process.argv);
-// const { argv } = yargs(arr);
-
 const contacts = require("./contacts");
 async function invokeAction({ action, id, name, email, phone }) {
   switch (action) {
@@ -40,16 +35,3 @@ async function invokeAction({ action, id, name, email, phone }) {
   }
 }
 invokeAction(argv);
-
-// invokeAction({ action: "list" });
-
-// invokeAction({ action: "get", id: "10" });
-
-// invokeAction({
-//   action: "add",
-//   name: "Oleh Ivanytskyi",
-//   email: "ivanytskyi2407@gmail.com",
-//   phone: "+380676766950",
-// });
-
-// invokeAction({ action: "remove", id: "1" });
